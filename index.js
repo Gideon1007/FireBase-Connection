@@ -39,7 +39,36 @@ function login(){
     });    
 }
 
+function sign_up(){
+    
+    var userEmail= document.getElementById("email_field").value;
+    var userPass = document.getElementById("password_field").value;
+     firebase.auth().createUserWithEmailAndPassword(userEmail,userPass).catch(function(error){
+        
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        
+        window.alert("error:" + errorMessage );
+       
+        
+    });    
+    
+}
+
 function logout() {
     firebase.auth().signOut();
     
+}
+
+function send_verification(){
+     var user = firebase.auth().currentUser;
+    
+    user.sendEmailVerification().then(function(){
+        
+        window.alert("Verication sent");
+        
+    }).catch(function(error){
+        
+        window.alert("Error :" + error.message);
+    });
 }
